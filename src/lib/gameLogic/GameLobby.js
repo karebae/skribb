@@ -81,9 +81,17 @@ class GameLobby {
       this.currentDrawer += 1;
     }
     this.currentDrawerName = Object.keys(this.users)[this.currentDrawer];
+    this.clearDrawing();
     this.setNextWord();
     this.drawTimer = this.timerLength;
     this.decrementdrawTimer();
+  }
+
+  clearDrawing() {
+    const clearDrawing = new EventOptions({
+      event: SocketEvents.CLEAR_DRAW,
+    });
+    this.emitEvent(clearDrawing);
   }
 
   setNextWord() {

@@ -30,7 +30,8 @@ function GameLobby() {
 
   return (
     <div>
-      <h3>LobbName: {lobbyName}</h3>
+      <h3>Lobby Name: {lobbyName}</h3>
+      <h4>{userName ? `Player: ${userName}`: ''}</h4>
       {gameStatus ? (
         <GameBoard
           initialGameData={gameData}
