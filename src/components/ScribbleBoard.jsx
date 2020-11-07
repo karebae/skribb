@@ -13,9 +13,9 @@ function ScribbleBoard({ socket, currentDrawer, isDraw }) {
     socket.on(SocketEvents.DRAW, function (data) {
       console.log("Got: " + data.x + " " + data.y);
       let color = data.isDraw ? 0 : 255;
-      p5.fill(color); //if drawState is 'draw' 0 if drawState
-      p5.noStroke();
-      p5.circle(data.x, data.y, 10);
+      p5.stroke(color);
+      p5.strokeWeight(4);
+      p5.line(data.x, data.y, data.px, data.py);
     });
 
     socket.on(SocketEvents.CLEAR_DRAW, function() {
@@ -24,13 +24,15 @@ function ScribbleBoard({ socket, currentDrawer, isDraw }) {
     })
   };
 
-  function sendmouse(xpos, ypos, isDraw) {
-    console.log("sendmouse: " + xpos + " " + ypos);
+  function sendmouse(x, y, pX, pY, isDraw) {
+    console.log("sendmouse: " + x + " " + y);
 
     // Make a little object with  and y
     var data = {
-      x: xpos,
-      y: ypos,
+      x: x,
+      y: y,
+      px: pX,
+      py: pY,
       isDraw: isDraw
     };
 
@@ -43,11 +45,14 @@ function ScribbleBoard({ socket, currentDrawer, isDraw }) {
 
     if (currentDrawer) {
       let color = isDraw ? 0 : 255;
-      p5.fill(color); //black
-      p5.noStroke();
-      p5.circle(p5.mouseX, p5.mouseY, 10);
+
+      //draw line
+      p5.stroke(color);
+      p5.strokeWeight(4);
+      p5.line(p5.mouseX, p5.mouseY, p5.pmouseX, p5.pmouseY);
+
       // Send the mouse coordinates
-      sendmouse(p5.mouseX, p5.mouseY, isDraw);
+      sendmouse(p5.mouseX, p5.mouseY, p5.pmouseX, p5.pmouseY, isDraw);
     }
   }
 
