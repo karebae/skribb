@@ -43,4 +43,12 @@ dynamicNspLobby.on("connect", (socket) => {
     console.log("Received: 'mouse' " + data.x + " " + data.y);
     socket.broadcast.emit(SocketEvents.DRAW, data);
   });
+
+  socket.on(SocketEvents.CLEAR_DRAW, function() {
+    console.log("clear drawing in server index.js");
+
+    // hecky solution
+    socket.emit(SocketEvents.CLEAR_DRAW);
+    socket.broadcast.emit(SocketEvents.CLEAR_DRAW);
+  })
 });

@@ -1,10 +1,12 @@
 import React, { useState, useEffect, Suspense } from "react";
+import { EventOptions } from "../lib/utils";
 import SocketEvents from "../lib/enums/socketEvents";
 const ScribbleBoard = React.lazy(() => import("./ScribbleBoard"));
 
 function GameBoard({ initialGameData, initialUserState, socket, userName,users }) {
   const [gameData, updateGameData] = useState(initialGameData);
   const [myWord, updateMyWord] = useState();
+  const [isDraw, updateIsDraw] = useState(true);
 
 
   useEffect(() => {
@@ -48,8 +50,32 @@ function GameBoard({ initialGameData, initialUserState, socket, userName,users }
   // });
 
 
+  function handleClearDrawing() {
+    console.log('hit clear drawing');
+    socket.emit(SocketEvents.CLEAR_DRAW);
+  }
+
+  function handleEraseOrDraw(e) {
+    console.log('erase/draw button');
+    console.log(e.target.id);
+    if (e.target.id === 'eraseBtn') {
+      updateIsDraw(false);
+    } else if (e.target.id === 'drawBtn') {
+      updateIsDraw(true);
+    }
+  }
+
   let displayMyWord =
-    userName === gameData.currentDrawerName ? <div>{myWord}</div> : <></>;
+    userName === gameData.currentDrawerName ? <div>{`Your word is: ${myWord}`}</div> : <></>;
+
+  let clearDrawingButton =
+    userName === gameData.currentDrawerName ? <button type="button" onClick={() => handleClearDrawing()}> Clear Drawing </button> : <></>;
+
+  let eraseButton =
+    userName === gameData.currentDrawerName ? <button id="eraseBtn" type="button" onClick={(e) => handleEraseOrDraw(e)}> Erase </button> : <></>;
+
+  let drawButton =
+    userName === gameData.currentDrawerName ? <button id="drawBtn" type="button" onClick={(e) => handleEraseOrDraw(e)}> Draw </button> : <></>;
 
   return (
     <div>
@@ -74,8 +100,12 @@ function GameBoard({ initialGameData, initialUserState, socket, userName,users }
         <ScribbleBoard
           socket={socket}
           currentDrawer={userName === gameData.currentDrawerName}
+          isDraw={isDraw}
         />
       </Suspense>
+      {drawButton}
+      {eraseButton}
+      {clearDrawingButton}
     </div>
   );
 }

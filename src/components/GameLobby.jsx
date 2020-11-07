@@ -77,7 +77,7 @@ function GameLobby() {
         />
       ))
       }
-      
+
       {<ChatRoom socket={socket} userName={userName} />}
     </div>
   );
