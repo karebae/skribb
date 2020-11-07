@@ -2,10 +2,11 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import CreateLobby from "./CreateLobby";
 import GameLobby from "./GameLobby";
+import styles from './styles.css'
 
 function App({ redirect }) {
   return (
-    <div>
+    <div className={styles.app}>
       <Switch>
         <Route
           exact

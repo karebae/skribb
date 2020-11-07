@@ -1,5 +1,4 @@
 import User from "./User";
-import Message from "./Message";
 import SocketEvents from "../enums/socketEvents";
 import { EventOptions } from "../utils";
 import { Socket } from "socket.io-client";

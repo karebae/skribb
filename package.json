@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec babel-node server/index.js",
+    "dev": "nodemon --exec babel-node --plugins css-modules-transform server/index.js",
     "webpack": "webpack -w"
   },
   "author": "",
@@ -19,10 +19,12 @@
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.1",
     "babel-loader": "^8.1.0",
+    "css-loader": "^5.0.1",
     "webpack": "^5.3.2",
     "webpack-cli": "^4.1.0"
   },
   "dependencies": {
+    "babel-plugin-css-modules-transform": "^1.6.2",
     "compression": "^1.7.4",
     "express": "^4.17.1",
     "handlebars": "^4.7.6",
@@ -33,6 +35,7 @@
     "react-p5": "^1.3.6",
     "react-router-dom": "^5.2.0",
     "socket.io": "^2.3.0",
-    "socket.io-client": "^2.3.1"
+    "socket.io-client": "^2.3.1",
+    "style-loader": "^2.0.0"
   }
 }

@@ -22,10 +22,25 @@ const config = {
         },
         exclude: /node_modules/,
       },
+      {
+        test: /\.css$/i,
+        exclude: /node_modules/,
+        use: [
+          // [style-loader](/loaders/style-loader)
+          { loader: 'style-loader' },
+          // [css-loader](/loaders/css-loader)
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true
+            }
+          },
+        ],
+      },
     ],
   },
   resolve: {
-    extensions: [".js", ".jsx", ".json", ".wasm", ".mjs", "*"],
+    extensions: [".js", ".jsx", ".json", ".wasm", ".mjs", "*", '.css'],
   },
 };
 
