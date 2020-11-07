@@ -1,4 +1,5 @@
 import User from "./User";
+import Message from "./Message";
 import SocketEvents from "../enums/socketEvents";
 import { EventOptions } from "../utils";
 import { Socket } from "socket.io-client";
@@ -10,14 +11,15 @@ class GameLobby {
     this.lobbyName = nameSpace.name;
     this.nameSpace = nameSpace;
     this.users = {};
-    this.totalRounds = 3;
+    this.totalRounds = 1;
     this.currentRound = 1;
-    this.timerLength = 60;
+    this.timerLength = 7;
     this.drawTimer = this.timerLength;
     this.currentDrawer = 0; //index
     this.currentDrawerName;
     this.selectedWords = [];
-    this.currentWord;
+    this.currentWord = '';
+    this.messages = [];
   }
 
   //reducing timer
@@ -38,7 +40,7 @@ class GameLobby {
       this.emitEvent(decrementTimer);
       if (this.drawTimer === 0) {
         clearInterval(countDown);
-        this.drawTimer = this.timerLengh;
+        this.drawTimer = this.timerLength;
         this.setUpNextDrawer();
       }
     }, 1000);
@@ -167,6 +169,7 @@ class GameLobby {
 
     this.emitEvent(newUserUpdateMsg);
   }
+
   checkLobbyReadyStatus() {
     const allUsersReady = Object.values(this.users).every(
       (user) => user.readyStatus
@@ -229,6 +232,24 @@ class GameLobby {
     return Math.floor((this.drawTimer / this.timerLength) * 100);
   }
 
+  updateMessage(message) {
+    this.messages.push(message);
+    console.log('message:', message);
+    // console.log("MESSAGE FROM GAMELOBBY : ", this.messages);
+    let chatMessage = '';
+    if (message.evaluate) {
+      chatMessage = `${message.userName} guessed the word.`;
+    } else {
+      chatMessage = `${message.userName}: ${message.guess}`;
+    }
+    const newChatMessage = new EventOptions({
+      message: {message: chatMessage},
+      event: SocketEvents.LOBBY_MESSAGE,
+    });
+
+    this.emitEvent(newChatMessage);
+  }
+
   emitEvent(options) {
     if (Array.isArray(options)) {
       options.forEach((option) => this.emitEvent(option));
@@ -239,6 +260,10 @@ class GameLobby {
         this.nameSpace.to(options.target).emit(options.event, options.message);
       }
     }
+    if (options.event !== 'DECREMENT_DRAW_TIMER') {
+      // console.log('EMIT OPTIONS : ', options);
+    }
+
   }
 }
 
