@@ -236,7 +236,7 @@ class GameLobby {
     }
     const newChatMessage = new EventOptions({
       message: {message: chatMessage},
-      event: SocketEvents.USER_MESSAGE,
+      event: SocketEvents.LOBBY_MESSAGE,
     });
 
     this.emitEvent(newChatMessage);
