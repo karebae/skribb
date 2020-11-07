@@ -1,3 +1,4 @@
+// A frozen object can no longer be changed
 const SocketEvents = Object.freeze({
   ADD_USER_TO_LOBBY: "ADD_USER_TO_LOBBY",
   USER_MESSAGE: "USER_MESSAGE",

@@ -10,9 +10,9 @@ class GameLobby {
     this.lobbyName = nameSpace.name;
     this.nameSpace = nameSpace;
     this.users = {};
-    this.totalRounds = 3;
+    this.totalRounds = 1;
     this.currentRound = 1;
-    this.timerLength = 60;
+    this.timerLength = 7;
     this.drawTimer = this.timerLength;
     this.currentDrawer = 0; //index
     this.currentDrawerName;
