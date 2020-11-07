@@ -15,7 +15,6 @@ function ChatRoom({ socket, userName }) {
       updateMessage(newMessages);
     }
     socket.on(SocketEvents.LOBBY_MESSAGE, addMessages);
-    socket.on(SocketEvents.USER_MESSAGE, addMessages);
 
     return () => {
       socket.off(SocketEvents.LOBBY_MESSAGE, addMessages);
