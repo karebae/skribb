@@ -6,7 +6,7 @@ function UserList({ socket, userName }) {
 
   useEffect(() => {
     function updateUserData(usersData) {
-      console.log("updated");
+      console.log("list updated");
       updateUsers(usersData.data);
     }
     socket.on(SocketEvents.USERS_UPDATED, updateUserData);
