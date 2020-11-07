@@ -3,9 +3,6 @@ import moment from "moment";
 
 function Chat({ message }) {
   console.log('CHAT.JSX - MESSAGE : ', message)
-  if (typeof message.message === 'object') {
-    message.message = message.message.guess;
-  }
   return (
     <div>
       <p>{message.message}</p>
