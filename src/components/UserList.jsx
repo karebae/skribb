@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SocketEvents from "../lib/enums/socketEvents";
+import styles from './styles.css'
 
 function UserList({ socket, userName }) {
   const [users, updateUsers] = useState({});

@@ -6,6 +6,8 @@ import establishIoConnection from "../lib/socket/";
 import SocketEvents from "../lib/enums/socketEvents";
 import GameBoard from "./GameBoard";
 import WinnerPage from "./WinnerPage";
+import styles from './styles.css'
+
 
 function GameLobby() {
   const [lobbyName] = useState(useParams().lobbyName);

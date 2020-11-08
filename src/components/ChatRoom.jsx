@@ -3,6 +3,7 @@ import SocketEvents from "../lib/enums/socketEvents";
 import moment from "moment";
 import Chat from "./Chat";
 import GameLobby from "../lib/gameLogic/GameLobby.js";
+import styles from './styles.css'
 
 function ChatRoom({ socket, userName }) {
   const [messages, updateMessage] = useState([]);
@@ -28,7 +29,7 @@ function ChatRoom({ socket, userName }) {
   }
 
   return (
-    <>
+    <div className={styles.chat}>
       {messages.map((message, i) => {
         return <Chat message={message} key={message} />;
       })}
@@ -38,6 +39,7 @@ function ChatRoom({ socket, userName }) {
         onChange={(e) => updateChatInput(e.target.value)}
       />
       <input
+        className={styles.btn}
         type="submit"
         value="enter"
         onClick={() => {
@@ -45,7 +47,7 @@ function ChatRoom({ socket, userName }) {
           updateChatInput('');
         }}
       />
-    </>
+    </div>
   );
 }
 

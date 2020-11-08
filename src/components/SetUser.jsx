@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SocketEvents from "../lib/enums/socketEvents";
+import styles from './styles.css'
 import UserList from "./UserList";
 
 function SetUser({ socket, setUserName, userName }) {
@@ -50,6 +51,7 @@ function SetUser({ socket, setUserName, userName }) {
             onChange={(e) => updateUserName(e.target.value)}
           />
           <input
+            className={styles.btn}
             type="submit"
             value="Set User Name"
             onClick={(e) => {

@@ -1,6 +1,7 @@
 import React from "react";
 import Sketch from "react-p5";
 import SocketEvents from "../lib/enums/socketEvents";
+import styles from './styles.css';
 
 function ScribbleBoard({ socket, currentDrawer, isDraw }) {
   let x = 50;

@@ -1,6 +1,7 @@
 import React from "react";
 import { Socket } from "socket.io-client";
 import SocketEvents from "../lib/enums/socketEvents";
+import styles from './styles.css'
 
 function WinnerPage({users, userName, socket ,updateUserData, initialUserState, updateGameStatus, updateGameOver}) {
     // on click
@@ -45,10 +46,10 @@ function WinnerPage({users, userName, socket ,updateUserData, initialUserState, 
     return(
         <div>
             <h1>Winner is {sorted[0].userName} </h1>
-            {sorted.map((user, i)=>( 
+            {sorted.map((user, i)=>(
                 <ul key ={i}>{i+1}. User: {user.userName} {'  '}  Score: {user.currentScore}</ul>
-            ))} 
-            <button onClick= {initialized} >click</button>
+            ))}
+            <button className={styles.btn} onClick= {initialized} >click</button>
         </div>
     )
 }

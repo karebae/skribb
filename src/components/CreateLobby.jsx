@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
+import styles from './styles.css'
 
 function CreateLobby({ redirect }) {
   const [lobbyName, updateLobbyName] = useState("");
@@ -19,7 +20,11 @@ function CreateLobby({ redirect }) {
             onChange={(e) => updateLobbyName(e.target.value)}
           />
           <Link to={lobbyName}>
-            <input type="submit" value="Create Lobby" />
+            <input
+              className={styles.btn}
+              type="submit"
+              value="Create Lobby"
+            />
           </Link>
         </label>
       </form>

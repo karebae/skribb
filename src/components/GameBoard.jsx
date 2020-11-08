@@ -2,6 +2,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import { EventOptions } from "../lib/utils";
 import SocketEvents from "../lib/enums/socketEvents";
 const ScribbleBoard = React.lazy(() => import("./ScribbleBoard"));
+import styles from './styles.css'
 
 function GameBoard({ initialGameData, initialUserState, socket, userName,users }) {
   const [gameData, updateGameData] = useState(initialGameData);
@@ -25,15 +26,15 @@ function GameBoard({ initialGameData, initialUserState, socket, userName,users }
 
     socket.on(SocketEvents.DECREMENT_DRAW_TIMER, decrementDrawTimer);
     socket.on(SocketEvents.START_YOUR_TURN, updateWord);
-    
+
     return () => {
       socket.off(SocketEvents.DECREMENT_DRAW_TIMER, decrementDrawTimer);
       socket.off(SocketEvents.START_YOUR_TURN, updateWord);
-      
+
 
     };
   }, [gameData, myWord, users]);
-  
+
   console.log(initialUserState)
   console.log(users)
 
@@ -79,33 +80,37 @@ function GameBoard({ initialGameData, initialUserState, socket, userName,users }
 
   return (
     <div>
-      {displayMyWord}
-      <div>Total Rounds: {gameData.totalRounds}</div>
-      <div>Current Round: {gameData.currentRound}</div>
-      <div>Draw Timer: {gameData.drawTimer}</div>
-      <div>Current Drawer: {gameData.currentDrawerName} </div>
-      <div> Score Board:  </div>
-       <ul>
-      {Object.values(users).map((user, i) => {
-        return (
-          <li key={user.userId}>
-            <h3>
-              {user.userName} :{user.currentScore} 
-            </h3>
-          </li>
-        );
-      })}
-      </ul> 
-      <Suspense fallback={<dev>Loading...</dev>}>
-        <ScribbleBoard
-          socket={socket}
-          currentDrawer={userName === gameData.currentDrawerName}
-          isDraw={isDraw}
-        />
-      </Suspense>
-      {drawButton}
-      {eraseButton}
-      {clearDrawingButton}
+      <div>
+        {displayMyWord}
+        <div>Total Rounds: {gameData.totalRounds}</div>
+        <div>Current Round: {gameData.currentRound}</div>
+        <div>Draw Timer: {gameData.drawTimer}</div>
+        <div>Current Drawer: {gameData.currentDrawerName} </div>
+        <div> Score Board:  </div>
+        <ul>
+          {Object.values(users).map((user, i) => {
+            return (
+              <li key={user.userId}>
+                <h3>
+                  {user.userName} :{user.currentScore}
+                </h3>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+      <div>
+        <Suspense fallback={<dev>Loading...</dev>}>
+          <ScribbleBoard
+            socket={socket}
+            currentDrawer={userName === gameData.currentDrawerName}
+            isDraw={isDraw}
+          />
+        </Suspense>
+        {drawButton}
+        {eraseButton}
+        {clearDrawingButton}
+      </div>
     </div>
   );
 }
